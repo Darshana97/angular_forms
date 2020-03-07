@@ -10,24 +10,26 @@ import { error } from '@angular/compiler/src/util';
 })
 export class AppComponent {
   title = 'tracking-state-and-validity';
-  public topics = ['Angular','React','Vue'];
+  public topics = ['Angular', 'React', 'Vue'];
   topicHasError = true;
+  submitted = false;
 
-  userModel = new User('Darshana','darshana@gmail.com',1234567890, 'default','morning',true);
+  userModel = new User('Darshana', 'darshana@gmail.com', 1234567890, 'default', 'morning', true);
 
-  constructor(private _enrollmentService: EnrollmentService){}
+  constructor(private _enrollmentService: EnrollmentService) { }
 
-  validateTopic(value){
-    if(value === 'default'){
+  validateTopic(value) {
+    if (value === 'default') {
       this.topicHasError = true;
-    }else{
+    } else {
       this.topicHasError = false;
     }
 
   }
 
-  onSubmit(){
-    this._enrollmentService.enroll(this.userModel).subscribe(data => console.log('Success!', data),error => console.error('Error!', error))
+  onSubmit() {
+    this.submitted = true;
+    this._enrollmentService.enroll(this.userModel).subscribe(data => console.log('Success!', data), error => console.error('Error!', error))
   }
 
 }
